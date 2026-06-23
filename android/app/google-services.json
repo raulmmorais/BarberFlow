@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "697711167014",
+    "project_id": "barberflow-4169a",
+    "storage_bucket": "barberflow-4169a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697711167014:android:eed58a26cbbbf5a79d48e7",
+        "android_client_info": {
+          "package_name": "com.barberflow.barberflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697711167014-1s7sf9ejejgq9ci6vl43d7ljqsbme1to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barberflow.barberflow",
+            "certificate_hash": "87a519e46b989f49b5f6fc32aa1fc0e9f6251d29"
+          }
+        },
+        {
+          "client_id": "697711167014-h6hjgq4q1o3f036gv71flnj6a7iv9o0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq76JqPEKX-PG2PSaL63Io4qG_zFjoZ4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697711167014-h6hjgq4q1o3f036gv71flnj6a7iv9o0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
