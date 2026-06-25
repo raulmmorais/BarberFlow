@@ -54,6 +54,21 @@ class AgendamentoRemoteDatasource {
     }
   }
 
+  Future<void> atualizarMidia({
+    required String id,
+    String? comentario,
+    String? fotoLocalPath,
+  }) async {
+    try {
+      await _collection.doc(id).update({
+        if (comentario != null) 'comentario_pos_corte': comentario,
+        if (fotoLocalPath != null) 'foto_local_path': fotoLocalPath,
+      });
+    } on FirebaseException catch (e) {
+      throw AppException(e.message ?? 'Erro ao salvar mídia.');
+    }
+  }
+
   Future<void> concluirAtendimento({
     required String id,
     String? comentario,

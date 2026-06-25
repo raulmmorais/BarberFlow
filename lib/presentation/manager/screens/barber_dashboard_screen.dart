@@ -28,6 +28,52 @@ class _BarberDashboardScreenState extends State<BarberDashboardScreen> {
     });
   }
 
+  Future<void> _dialogConcluir(
+      BuildContext context, String agendamentoId) async {
+    final comentarioController = TextEditingController();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Concluir atendimento'),
+        content: TextField(
+          controller: comentarioController,
+          decoration: const InputDecoration(
+            labelText: 'Observação interna (opcional)',
+            hintText: 'Ex: cliente satisfeito, próxima visita em 3 semanas',
+          ),
+          maxLines: 3,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Concluir'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final provider = context.read<BarberDashboardProvider>();
+    final ok = await provider.concluir(
+      agendamentoId,
+      comentario: comentarioController.text.trim().isEmpty
+          ? null
+          : comentarioController.text.trim(),
+    );
+
+    if (!context.mounted) return;
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(provider.error ?? 'Erro ao concluir.')),
+      );
+    }
+  }
+
   Future<void> _selecionarData(BuildContext context) async {
     final provider = context.read<BarberDashboardProvider>();
     final picked = await showDatePicker(
@@ -203,6 +249,8 @@ class _BarberDashboardScreenState extends State<BarberDashboardScreen> {
                             status: a.status,
                             hasConflict: provider.temConflito(a),
                             isActing: provider.isActing,
+                            onConcluir: () =>
+                                _dialogConcluir(context, a.id),
                             onConfirm: () async {
                               final ok =
                                   await provider.confirmar(a.id);

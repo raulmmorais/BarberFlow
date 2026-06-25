@@ -26,6 +26,17 @@ class AgendamentoRepository {
   Future<void> updateStatus(String id, AgendamentoStatus status) =>
       _remoteDatasource.updateStatus(id, status);
 
+  Future<void> atualizarMidia({
+    required String id,
+    String? comentario,
+    String? fotoLocalPath,
+  }) =>
+      _remoteDatasource.atualizarMidia(
+        id: id,
+        comentario: comentario,
+        fotoLocalPath: fotoLocalPath,
+      );
+
   Future<void> concluirAtendimento({
     required String id,
     String? comentario,

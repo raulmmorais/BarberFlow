@@ -12,6 +12,7 @@ class DayScheduleCard extends StatelessWidget {
     this.hasConflict = false,
     this.onConfirm,
     this.onReject,
+    this.onConcluir,
     this.isActing = false,
   });
 
@@ -23,6 +24,7 @@ class DayScheduleCard extends StatelessWidget {
   final bool hasConflict;
   final VoidCallback? onConfirm;
   final VoidCallback? onReject;
+  final VoidCallback? onConcluir;
   final bool isActing;
 
   Color _corStatus(BuildContext context) => switch (status) {
@@ -96,6 +98,20 @@ class DayScheduleCard extends StatelessWidget {
               '$duracaoMinutos min',
               style: Theme.of(context).textTheme.bodySmall,
             ),
+
+            // ── Botão Concluir (somente confirmados) ───────────────────────
+            if (status == AgendamentoStatus.confirmado) ...[
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.task_alt),
+                  label: const Text('Concluir atendimento'),
+                  onPressed: isActing ? null : onConcluir,
+                ),
+              ),
+            ],
 
             // ── Botões de ação (somente pendentes) ──────────────────────────
             if (isPendente) ...[

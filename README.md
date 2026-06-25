@@ -128,16 +128,28 @@ Detalhes completos em [`instructions.md`](instructions.md).
 
 > **Firestore:** índices compostos necessários em `agendamentos` — `(id_cliente, data_hora DESC)` e `(id_barbeiro, data_hora ASC)`.
 
-### Sprint 4 — Painel do barbeiro e gestão de agenda *(próxima)*
+### Sprint 4 — Painel do barbeiro e gestão de agenda ✅
 
-- [ ] Dashboard do barbeiro com agenda do dia filtrada por profissional
-- [ ] Confirmar / Recusar agendamentos
-- [ ] Agendamento manual (cliente sem app)
-- [ ] Destaque visual para conflitos de horário
+- [x] Dashboard do barbeiro com agenda do dia filtrada por profissional
+- [x] Confirmar / Recusar agendamentos pendentes
+- [x] Agendamento manual (cliente sem app, com nome livre)
+- [x] Destaque visual para conflitos de horário
+- [x] Navegação entre dias com seletor de data
+- [x] `BarberDashboardProvider` com `StreamSubscription` cancelável por data
 
-### Sprints 5–8
+### Sprint 5 — Conclusão do atendimento e histórico do cliente ✅
 
-Histórico/fotos locais, mensalistas, FCM e deploy — ver [`instructions.md`](instructions.md).
+- [x] Botão "Concluir atendimento" no card do barbeiro (somente confirmados)
+- [x] Dialog de conclusão com campo de observação interna opcional
+- [x] Tela "Histórico" do cliente com todos os atendimentos concluídos
+- [x] Foto pós-corte salva **localmente** no dispositivo via `image_picker` + `path_provider`
+- [x] Thumbnail da foto exibido no card de histórico com `Image.file()`
+- [x] Comentário pós-corte adicionável/editável pelo cliente
+- [x] Metadados (foto e comentário) persistidos no Firestore via `atualizarMidia()`
+
+### Sprints 6–8
+
+Mensalistas, FCM e deploy — ver [`instructions.md`](instructions.md).
 
 ## Scripts úteis
 

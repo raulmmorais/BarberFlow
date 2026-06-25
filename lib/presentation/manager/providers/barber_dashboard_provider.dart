@@ -129,8 +129,29 @@ class BarberDashboardProvider extends ChangeNotifier {
     _watchAgenda();
   }
 
-  Future<bool> confirmar(String id) => _atualizarStatus(id, AgendamentoStatus.confirmado);
-  Future<bool> recusar(String id) => _atualizarStatus(id, AgendamentoStatus.recusado);
+  Future<bool> confirmar(String id) =>
+      _atualizarStatus(id, AgendamentoStatus.confirmado);
+  Future<bool> recusar(String id) =>
+      _atualizarStatus(id, AgendamentoStatus.recusado);
+
+  Future<bool> concluir(String id, {String? comentario}) async {
+    _isActing = true;
+    _error = null;
+    notifyListeners();
+    try {
+      await _agendamentoRepo.concluirAtendimento(
+        id: id,
+        comentario: comentario,
+      );
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      return false;
+    } finally {
+      _isActing = false;
+      notifyListeners();
+    }
+  }
 
   Future<bool> _atualizarStatus(String id, AgendamentoStatus status) async {
     _isActing = true;

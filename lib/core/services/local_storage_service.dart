@@ -8,9 +8,15 @@ class LocalStorageService {
 
   final ImagePicker _picker;
 
-  Future<String?> captureAndSavePhoto(String agendamentoId) async {
+  Future<String?> captureAndSavePhoto(String agendamentoId) =>
+      savePhoto(agendamentoId, source: ImageSource.camera);
+
+  Future<String?> savePhoto(
+    String agendamentoId, {
+    ImageSource source = ImageSource.camera,
+  }) async {
     final image = await _picker.pickImage(
-      source: ImageSource.camera,
+      source: source,
       imageQuality: 80,
     );
     if (image == null) return null;
@@ -21,7 +27,8 @@ class LocalStorageService {
       await photosDir.create(recursive: true);
     }
 
-    final fileName = '${agendamentoId}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final fileName =
+        '${agendamentoId}_${DateTime.now().millisecondsSinceEpoch}.jpg';
     final savedPath = '${photosDir.path}/$fileName';
     await File(image.path).copy(savedPath);
     return savedPath;
