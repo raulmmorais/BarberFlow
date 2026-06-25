@@ -14,4 +14,7 @@ class EstabelecimentoRepository {
 
   Future<void> save(EstabelecimentoModel estabelecimento) =>
       _datasource.save(estabelecimento);
+
+  Future<bool> validateCodigoConvite(String estabId, String code) =>
+      _datasource.validateCodigoConvite(estabId, code);
 }

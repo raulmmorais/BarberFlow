@@ -44,6 +44,17 @@ class UsuarioRemoteDatasource {
             snapshot.docs.map(UsuarioModel.fromFirestore).toList());
   }
 
+  Future<void> updateTipo(String uid, TipoUsuario tipo) async {
+    try {
+      await _firestore
+          .collection(FirestoreCollections.usuarios)
+          .doc(uid)
+          .update({'tipo': tipo.value});
+    } on FirebaseException catch (e) {
+      throw AppException(e.message ?? 'Erro ao atualizar tipo de usuário.');
+    }
+  }
+
   Future<void> updateMensalista(String uid, MensalistaUpdate data) async {
     try {
       await _firestore.collection(FirestoreCollections.usuarios).doc(uid).update({

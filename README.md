@@ -97,7 +97,7 @@ flutter run
 
 Detalhes completos em [`instructions.md`](instructions.md).
 
-### Sprint 1 — Setup, arquitetura e autenticação *(em andamento)*
+### Sprint 1 — Setup, arquitetura e autenticação ✅
 
 - [x] Projeto Flutter criado e código padrão removido
 - [x] Firebase Console configurado (Auth + Firestore)
@@ -108,19 +108,36 @@ Detalhes completos em [`instructions.md`](instructions.md).
 - [x] Telas de Login e Cadastro (e-mail/senha)
 - [x] Login com Google + tela de completar perfil
 - [x] `RootPage` com roteamento por tipo de usuário (cliente / barbeiro / dono)
-- [ ] Regras de segurança Firestore definitivas (MVP usa auth básico)
-- [ ] Fluxo de cadastro para perfis barbeiro/dono via app
+- [x] Regras de segurança Firestore (MVP)
+- [x] Fluxo de cadastro para perfis barbeiro/dono com código de convite
 
-### Sprint 2 — Catálogo e estabelecimento
+### Sprint 2 — Catálogo e estabelecimento ✅
 
-- [ ] Cadastro do estabelecimento (dono)
-- [ ] CRUD de serviços
-- [ ] CRUD de profissionais
-- [ ] Tema dinâmico consumindo Firestore na UI
+- [x] Cadastro do estabelecimento — nome, cores, dias e horário de funcionamento (`OwnerEstablishmentScreen`)
+- [x] CRUD de serviços — add/editar/excluir com nome, preço e duração (`ServicesCrudScreen`)
+- [x] CRUD de profissionais — promover/demover usuários por UID (`BarbersCrudScreen`)
+- [x] Tema dinâmico consumindo Firestore na UI (`DynamicTheme` + `EstabelecimentoProvider`)
 
-### Sprints 3–8
+### Sprint 3 — Fluxo de agendamento do cliente ✅
 
-Agendamento do cliente, painel do barbeiro, histórico/fotos locais, mensalistas, FCM e deploy — ver [`instructions.md`](instructions.md).
+- [x] Home do cliente com lista de serviços e profissionais em tempo real
+- [x] Fluxo de agendamento em 4 passos: serviços → profissional → data → horário
+- [x] Cálculo de slots disponíveis com base nos horários do estabelecimento e agenda do barbeiro
+- [x] Envio do agendamento ao Firestore com `status = pendente`
+- [x] Tela "Meus agendamentos" com status colorido
+
+> **Firestore:** índices compostos necessários em `agendamentos` — `(id_cliente, data_hora DESC)` e `(id_barbeiro, data_hora ASC)`.
+
+### Sprint 4 — Painel do barbeiro e gestão de agenda *(próxima)*
+
+- [ ] Dashboard do barbeiro com agenda do dia filtrada por profissional
+- [ ] Confirmar / Recusar agendamentos
+- [ ] Agendamento manual (cliente sem app)
+- [ ] Destaque visual para conflitos de horário
+
+### Sprints 5–8
+
+Histórico/fotos locais, mensalistas, FCM e deploy — ver [`instructions.md`](instructions.md).
 
 ## Scripts úteis
 

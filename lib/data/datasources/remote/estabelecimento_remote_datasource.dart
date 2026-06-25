@@ -43,4 +43,18 @@ class EstabelecimentoRemoteDatasource {
       throw AppException(e.message ?? 'Erro ao salvar estabelecimento.');
     }
   }
+
+  Future<bool> validateCodigoConvite(String estabId, String code) async {
+    try {
+      final doc = await _firestore
+          .collection(FirestoreCollections.estabelecimentos)
+          .doc(estabId)
+          .get();
+      if (!doc.exists) return false;
+      final stored = doc.data()?['codigo_convite'] as String?;
+      return stored != null && stored.isNotEmpty && stored == code;
+    } on FirebaseException catch (e) {
+      throw AppException(e.message ?? 'Erro ao validar código de convite.');
+    }
+  }
 }

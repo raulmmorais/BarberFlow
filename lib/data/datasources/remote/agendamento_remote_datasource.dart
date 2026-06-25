@@ -62,8 +62,8 @@ class AgendamentoRemoteDatasource {
     try {
       await _collection.doc(id).update({
         'status': AgendamentoStatus.concluido.value,
-        'comentario_pos_corte': ?comentario,
-        'foto_local_path': ?fotoLocalPath,
+        if (comentario != null) 'comentario_pos_corte': comentario,
+        if (fotoLocalPath != null) 'foto_local_path': fotoLocalPath,
       });
     } on FirebaseException catch (e) {
       throw AppException(e.message ?? 'Erro ao concluir atendimento.');

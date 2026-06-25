@@ -1,13 +1,17 @@
 import 'package:barberflow/data/models/usuario_model.dart';
 import 'package:barberflow/data/repositories/auth_repository.dart';
+import 'package:barberflow/data/repositories/estabelecimento_repository.dart';
 import 'package:barberflow/domain/entities/usuario.dart';
 import 'package:barberflow/domain/enums/tipo_usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthProvider extends ChangeNotifier {
-  AuthProvider({AuthRepository? repository})
-      : _repository = repository ?? AuthRepository() {
+  AuthProvider({
+    AuthRepository? repository,
+    EstabelecimentoRepository? estabRepository,
+  })  : _repository = repository ?? AuthRepository(),
+        _estabRepository = estabRepository ?? EstabelecimentoRepository() {
     _repository.authStateChanges.listen((user) {
       _firebaseUser = user;
       notifyListeners();
@@ -15,6 +19,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   final AuthRepository _repository;
+  final EstabelecimentoRepository _estabRepository;
 
   User? _firebaseUser;
   Usuario? _usuario;
@@ -115,6 +120,14 @@ class AuthProvider extends ChangeNotifier {
       _needsProfileCompletion = false;
       _usuario = await _repository.getCurrentUsuario();
     });
+  }
+
+  Future<bool> validateInviteCode(String estabId, String code) async {
+    try {
+      return await _estabRepository.validateCodigoConvite(estabId, code);
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<void> signOut() async {
